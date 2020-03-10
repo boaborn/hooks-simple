@@ -1,30 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React from 'react'
+import useResources from './useResources'
 
 const ResourceList = ({ resource }) => {
-
-  const [resources, setResources] = useState([])
-
-  const fetchResource = async resource => {
-    const response = await axios.get(`http://jsonplaceholder.typicode.com/${resource}`)
-    setResources( response.data )
-  }
-
-  // (()=>{console.log('Hi)})() - define a function and immediately invoking, this is the sytanx of immediately invoking function
-
-  // useEffect(() => {
-  //   Nerds way
-  //   (async resource => {
-  //     const response = await axios.get(`http://jsonplaceholder.typicode.com/${resource}`)
-  //     setResources( response.data )
-  //   })(resource)
-
-  // }, [resource])
-
-  useEffect(() => {
-    fetchResource(resource)
-  }, [resource]) // useEffect will gets called if resource change. Put [] will result the useEffect function only gets called once
-
+  const resources = useResources(resource)
   return (
     <ul>
       { resources.map(record => (
